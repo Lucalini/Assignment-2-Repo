@@ -5,6 +5,11 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ *
+ *
+ */
+
 public class DrawPanel extends JPanel implements Observer {
     private int x = 50;
     private int y = 50;
@@ -20,6 +25,7 @@ public class DrawPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
             x = Repository.getInstance().get_x();
             y = Repository.getInstance().get_y();
+            repaint();
         }
 }
 

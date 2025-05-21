@@ -3,18 +3,16 @@ package org.general;
 import org.eclipse.paho.client.mqttv3.*;
 
 /**
- * This class is a simple MQTT subscriber that listens to a TOPIC.
- * The BROKER is test.mosquitto.org and the TOPIC is cal-poly/csc/309.
- * (run this and the publisher at the same time)
+ * This class is a simple MQTT subscriber that listens to updates on the circle's position
  *
- * @author javiergs
+ * @author lucalini
  * @version 1.0
  */
 public class Subscriber implements MqttCallback {
 
-    private final static String BROKER = "tcp://test.mosquitto.org:1883";
-    private final static String TOPIC = "cal-poly/csc/309";
-    private final static String CLIENT_ID = "jgs-subscriber";
+    private final static String BROKER = "tcp://broker.hivemq.com:1883";
+    private final static String TOPIC = "software/360";
+    private final static String CLIENT_ID = "ASU-subscriber";
 
     public static void main(String[] args) {
         try {
@@ -39,7 +37,12 @@ public class Subscriber implements MqttCallback {
     public void messageArrived(String s, MqttMessage mqttMessage) {
         System.out.println("Message arrived. Topic: " + s +
                 " Message: " + new String(mqttMessage.getPayload()));
-//        Repository.getInstance().updateValue();
+        String payload = new String(mqttMessage.getPayload());
+        String[] coordinates = payload.split(" ");
+        int x = Integer.parseInt(coordinates[0]);
+        int y = Integer.parseInt(coordinates[1]);
+        System.out.printf("%d %d", x, y);
+        Repository.getInstance().updateValue(x, y);
     }
 
     @Override

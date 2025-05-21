@@ -13,6 +13,8 @@ public class Main extends JFrame {
         add(panel);
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        String[] args = {};
+        Subscriber.main(args);
         setVisible(true);
 
     }
